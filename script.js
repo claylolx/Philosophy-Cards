@@ -105,6 +105,12 @@ function crearTarjetas(filosofos) {
             barraHabilidad.style.width = `${(infoHabilidad.nivel / 4) * 100}%`;
             barraHabilidadCont.appendChild(barraHabilidad);
         }
+        
+        borrarTarjeta = document.createElement('div');
+        borrarTarjeta.innerHTML = "&#x2716";
+        borrarTarjeta.classList.add('botonEliminar');
+        borrarTarjeta.addEventListener('click', eliminarTarjeta);
+        tarjeta.append(borrarTarjeta)
 
         // Añadimos tarjeta creada al contenedor de tarjetas
         let contenedor = document.querySelector('.cards-container');
@@ -113,7 +119,8 @@ function crearTarjetas(filosofos) {
 }
 
 function eliminarTarjeta() {
-}
+    this.closest('.card').remove();
+};
 
 function ordenarNombreAZ() {
     let tarjetas = Array.from(document.querySelectorAll('.card'));
