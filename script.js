@@ -13,6 +13,13 @@ window.onload = () => {
 
     botonOrdenarNombreAZ.addEventListener('click',ordenarNombreAZ);
     botonOrdenarNombreZA.addEventListener('click',ordenarNombreZA);
+
+    // Añadir listeners Guardar y Cargar tarjetas
+    let guardarTarjeta = document.querySelector('.save-btn');
+    let cargarTarjeta = document.querySelector('.load-btn');
+
+    guardarTarjeta.addEventListener('click',guardarTarjetas,);
+    cargarTarjeta.addEventListener('click',cargarTarjetas);
 }
 
 function crearTarjetas(filosofos) {
@@ -192,26 +199,45 @@ function parsearTarjetas(tarjetas){
         filosofo.nombre = tarjeta.querySelector('.nombre').innerHTML;
         filosofo.imagen = tarjeta.querySelector('.photo').src;
         filosofo.pais = {};
-        // Completar funció
+        // Completa la función
+        filosofo.nombre = tarjeta.querySelector('.pais').innerHTML
+        filosofo.bandera = tarjeta.querySelector('.bandera').src
+        filosofo.corriente = tarjeta.querySelector('.corriente').innerHTML.split(": ")[1];
+        filosofo.arma = tarjeta.querySelector('.arma').innerHTML.split(": ")[1];
         
+        filosofo.habilidades = [];
         let habilidades = tarjeta.querySelectorAll('.skill');
-        for (let habilidad of habilidades){
+        for (let habilidad of habilidades) {
             let habilidadParaGuardar = {};
-            // Completar funció
+            habilidadParaGuardar.habilidad = habilidad.querySelector('.skill-name').innerHTML;
+            habilidadParaGuardar.nivel = Math.round(parseFloat(habilidad.querySelector('.level').style.width) / 25); // Nivel de 0-4
+            filosofo.habilidades.push(habilidadParaGuardar);
         }
+
         filosofosParseados.push(filosofo);
     }
     return filosofosParseados;
 }
 
-function guardarTarjetas(){
+function guardarTarjetas() {
     let tarjetas = Array.from(document.querySelectorAll('.card'));
-    localStorage.setItem('tarjetas',JSON.stringify(parsearTarjetas(tarjetas)));
+    localStorage.setItem('tarjetas', JSON.stringify(parsearTarjetas(tarjetas)));
 }
+
 
 
 function cargarTarjetas() {
+    let tarjetasJSON = localStorage.getItem('tarjetas');
+    if (tarjetasJSON) {
+        let tarjetasData = JSON.parse(tarjetasJSON);
+
+        let contenedor = document.querySelector('.cards-container');
+        contenedor.innerHTML = "";
+
+        crearTarjetas(tarjetasData);
+    }
 }
+
 
 const filosofos = [
     {
