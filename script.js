@@ -200,8 +200,8 @@ function parsearTarjetas(tarjetas){
         filosofo.imagen = tarjeta.querySelector('.photo').src;
         filosofo.pais = {};
         // Completa la función
-        filosofo.nombre = tarjeta.querySelector('.pais').innerHTML
-        filosofo.bandera = tarjeta.querySelector('.bandera').src
+        filosofo.pais.nombre = tarjeta.querySelector('.pais').innerHTML
+        filosofo.pais.bandera = tarjeta.querySelector('.bandera').src
         filosofo.corriente = tarjeta.querySelector('.corriente').innerHTML.split(": ")[1];
         filosofo.arma = tarjeta.querySelector('.arma').innerHTML.split(": ")[1];
         
